@@ -1,6 +1,5 @@
 import random
 import statistics
-from collections import Counter
 
 def main():
 
@@ -8,8 +7,8 @@ def main():
 
     try:
         N = int(input("Введите количество измерений (N): "))
-        a = float(input("Введите начало интервала (a): "))
-        b = float(input("Введите конец интервала (b): "))
+        a = int(input("Введите начало интервала (a): "))
+        b = int(input("Введите конец интервала (b): "))
         
         if b <= a:
             print("Ошибка: конец интервала должен быть больше начала!")
@@ -25,7 +24,7 @@ def main():
 
     # Генератор случайных чисел
    
-    random_numbers = [random.uniform(a, b) for _ in range(N)]
+    random_numbers = [random.randint(a, b) for _ in range(N)]
     
     # Создание/открытие и запись случайных чисел в файл 
 
@@ -33,7 +32,15 @@ def main():
     with open(filename, 'w') as file:
         for number in random_numbers:
             file.write(f"{number:.6f}\n")
-        
+    
+    random_numbers = []  
+
+    # Открытие и считывание файлов
+
+    with open(filename, 'r') as file:
+        for raw_number in file.readlines():
+            random_numbers.append(float(raw_number))
+
     # Определение минимального и максимального значения из выборки
 
     max_value = max(random_numbers)
@@ -57,7 +64,9 @@ def main():
    
     # Определение вероятности выбора случайного числа из выборки
 
-    probability = 1 / (b - a)
+    count_of_even = len([i for i in random_numbers if i % 2 != 0])
+
+    probability = 1 / count_of_even
     
     # Результаты
 
