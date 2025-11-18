@@ -4,7 +4,6 @@ from matplotlib import cm
 import os
 
 def generate_matrix_A(N, debug_mode=False, debug_type='sequential', filename=None):
-    """Генерация матрицы A с различными вариантами отладочного заполнения"""
     if not debug_mode:
         A = np.random.randint(-10, 11, size=(N, N))
         print("Используется случайное заполнение")
